@@ -7,13 +7,17 @@ const express = require('express'),
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/auth',{ useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/auth',{ useNewUrlParser: true })
 
 const { User } = require('./models/user');
 const { auth } = require('./middleware/auth');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.get('/', (req,res) => {
+    res.status(200).send("Works now!");
+})
 
 
 app.post('/api/user', (req,res) =>{
@@ -73,7 +77,7 @@ app.get('/user/profile',auth, (req,res) =>{
     //in auth
    res.status(200).send(req.token);
 
-   
+
 })
 
 
