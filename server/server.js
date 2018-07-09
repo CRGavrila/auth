@@ -73,6 +73,7 @@ app.get('/user/profile',auth, (req,res) =>{
     //in auth
    res.status(200).send(req.token);
 
+   
 })
 
 
